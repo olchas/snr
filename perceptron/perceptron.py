@@ -137,3 +137,4 @@ for functions_set in activation_functions:
         for test_case in prediction:
             f.write('\t'.join(map(lambda x: str(x), test_case)) + '\n')
 
+score_file.close()

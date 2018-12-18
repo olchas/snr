@@ -46,13 +46,13 @@ def build_perceptron(layer_cnt, size_of_layers, activation):
     return model
     
 
-X_train = np.load('processed_data/X_train_all.npy')
-X_test = np.load('processed_data/X_test_all.npy')
-y_train = np.load('processed_data/y_train_all.npy')
-y_test = np.load('processed_data/y_test_all.npy')
+X_train = np.load('../processed_data/X_train_all.npy')
+X_test = np.load('../processed_data/X_test_all.npy')
+y_train = np.load('../processed_data/y_train_all.npy')
+y_test = np.load('../processed_data/y_test_all.npy')
 
-label_to_id = np.load('processed_data/label_to_id_all.npy')
-id_to_label = np.load('processed_data/id_to_label_all.npy')
+label_to_id = np.load('../processed_data/label_to_id_all.npy')
+id_to_label = np.load('../processed_data/id_to_label_all.npy')
 
 X_train, X_val, y_train, y_val = train_test_split(X_train, y_train, test_size=0.2)
 
@@ -67,11 +67,11 @@ layer_cnt_start = 1
 layer_cnt_stop = 4
 layer_cnt_step = 1
 
-layer_size_start = 50
-layer_size_stop = 100
-layer_size_step = 50
+layer_size_start = 100
+layer_size_stop = 1000
+layer_size_step = 100
 
-activation_functions = ['sigmoid', 'tanh', 'relu', 'elu']
+activation_functions = ['sigmoid', 'tanh', 'relu', 'softmax']
 
 if not os.path.isdir('models'):
     os.makedirs('models')
@@ -84,8 +84,8 @@ for activation in activation_functions:
     for layer_cnt in range(layer_cnt_start, layer_cnt_stop + 1, layer_cnt_step):
         for layer_size in range(layer_size_start, layer_size_stop + 1, layer_size_step):
             model_name = '{activation}_{layer_cnt}_{layer_size}'.format(
-                activation=activation, layer_cnt=layer_cnt, layer_size=layer_size
-            )
+                activation=activation, layer_cnt=layer_cnt, layer_size=layer_size)
+                
             model = build_perceptron(layer_cnt, layer_size, activation)
 
             output_dir = os.path.join('models', model_name)
@@ -115,3 +115,4 @@ for activation in activation_functions:
                     f.write('\t'.join(map(lambda x: str(x), test_case)) + '\n')
 
 score_file.close()
+
