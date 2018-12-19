@@ -94,6 +94,9 @@ print("WYKONUJE ONE HOT ENCODING")
 y_train = np_utils.to_categorical(y_train, number_of_classes)
 y_test = np_utils.to_categorical(y_test, number_of_classes)
 
+if not os.path.exists('../processed_data'):
+    os.makedirs('../processed_data')
+
 np.save('../processed_data/X_train_all', X_train)
 np.save('../processed_data/X_test_all', X_test)
 np.save('../processed_data/y_train_all', y_train)
