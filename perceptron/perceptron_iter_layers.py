@@ -1,6 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
 from numpy.random import seed
 seed(1)
 from tensorflow import set_random_seed
@@ -56,11 +53,9 @@ id_to_label = np.load('../processed_data/id_to_label_all.npy')
 
 X_train, X_val, y_train, y_val = train_test_split(X_train, y_train, test_size=0.2)
 
-number_of_classes = len(y_test[0]) # bo tyle jest różnych rodzajów owoców w zbiorze danych -> 83
-print("LICZBA KLAS: {}".format(number_of_classes))
+number_of_classes = len(y_test[0])
+print("Number of classes: {}".format(number_of_classes))
 
-# Definicja early stopping z patience=5, zatrzyma nam uczenie sieci, w przypadku, gdy dwie kolejne epoki nie przyniosą
-# zysku w postaci zwiększonej dokładności uczenia
 early_stopping = EarlyStopping(patience=5, min_delta=0.001)
 
 layer_cnt_start = 1

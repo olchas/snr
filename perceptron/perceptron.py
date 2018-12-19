@@ -1,6 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
 from numpy.random import seed
 seed(1)
 from tensorflow import set_random_seed
@@ -35,7 +32,6 @@ def top_5_accuracy(y_true, y_pred):
 
 def base_model(functions_set):
     model = Sequential()
-    #model.add(Dense(256, activation=activation_function, input_shape=(X_flat_train.shape[1],), kernel_initializer=gabor_weights))
     model.add(Dense(512, activation=functions_set[0], input_shape=(X_train.shape[1],)))
     model.add(Dropout(0.25))
     model.add(Dense(256, activation=functions_set[1]))
@@ -59,16 +55,12 @@ id_to_label = np.load('../processed_data/id_to_label_all.npy')
 
 X_train, X_val, y_train, y_val = train_test_split(X_train, y_train, test_size=0.2)
 
-number_of_classes = len(y_test[0]) # bo tyle jest różnych rodzajów owoców w zbiorze danych -> 81
-print("LICZBA KLAS: {}".format(number_of_classes))
+number_of_classes = len(y_test[0])
+print("Number of classes: {}".format(number_of_classes))
 
-# Definicja early stopping z patience=2, zatrzyma nam uczenie sieci, w przypadku, gdy dwie kolejne epoki nie przyniosą
-# zysku w postaci zwiększonej dokładności uczenia
 early_stopping = EarlyStopping(patience=5, min_delta=0.001)
 
 activation_functions = [p for p in itertools.product(['relu', 'tanh', 'softmax', 'sigmoid'], repeat=4)]
-
-#activation_functions = [p for p in itertools.product(['relu'], repeat=4)]
 
 if not os.path.isdir('models'):
     os.makedirs('models')
@@ -81,7 +73,7 @@ for functions_set in activation_functions:
 
     functions_set_name = '_'.join(functions_set)
 
-    print("WCZYTUJE SIEC!")
+    print("Loading network")
     model = base_model(functions_set)
     model.summary()
 
@@ -92,10 +84,6 @@ for functions_set in activation_functions:
     if not os.path.isdir(output_dir):
         os.makedirs(output_dir)
 
-    #history = model.fit(X_flat_train, y_train, batch_size=8, epochs=4, shuffle=True, verbose=1, callbacks=[early_stopping])
-
-    # Wyświetla wykresy uczenia dla funkcji straty (loss) oraz dokładności klasyfikacji
-    # list all data in history
     print(history.history.keys())
 
     # summarize history for top_1_accuracy

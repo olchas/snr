@@ -1,11 +1,14 @@
-import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
 import sys
+
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+
 
 def plot_dataset(dataset, key,  names):
     for data, name in zip(dataset, names):
         plot_function(data, key, name)
+
 
 def plot_function(data, key, activation):
     plt.plot(data['layer_size'], data[key], 'x--', label=activation)
@@ -18,16 +21,16 @@ def decorate_plot(ax, ylabel, ylim):
     ax.legend(loc=6)
     ax.grid()
 
+
 def plot_save_and_close(fig, name):
     plt.subplots_adjust(wspace=0.35)
 
     plt.savefig(name)
     plt.close(fig)
-    
-    
+
+
 df = pd.read_csv(sys.argv[1], delimiter='\t')
 layers = np.unique(df["layer_cnt"])
-df = pd.read_csv('scores_new.tsv', delimiter='\t')
 df["neurons"] = df['layer_cnt']*df['layer_size']
 df['top_1_accuracy'] = df['top_1_accuracy'].astype('float64')
 df['top_5_accuracy'] = df['top_5_accuracy'].astype('float64')
@@ -47,3 +50,4 @@ for layer in layers:
     plot_dataset(db, 'top_5_accuracy', fun_names)
     decorate_plot(top5_subplot, 'top_5_accuracy', [0.0, 1.1])
     plot_save_and_close(fig, '{layer}_layers.jpg'.format(layer=layer))
+
