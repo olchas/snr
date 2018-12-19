@@ -32,9 +32,9 @@ def extract_gabor_features(img):
         # calculate features separately for each RGB channel
         for i in range(3):
             # mean energy
-            features_vector.append(np.mean(filtered_img[:, :, i].astype('float64')**2) / 65536)
+            features_vector.append(np.mean(filtered_img[:, :, i].astype('float64')**2) / 65025)
             # mean_amplitude
-            features_vector.append(np.mean(filtered_img[:, :, i]) / 256)
+            features_vector.append(np.mean(filtered_img[:, :, i]) / 255)
     return features_vector
 
 # Filtr Gabora
