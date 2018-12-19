@@ -4,6 +4,7 @@ import sys
 from keras.models import load_model
 from keras import metrics
 
+# usage: python plot.py ${path_to_hd5_file_with_saved_model}
 
 def top_1_accuracy(y_true, y_pred):
     return metrics.top_k_categorical_accuracy(y_true, y_pred, k=1)

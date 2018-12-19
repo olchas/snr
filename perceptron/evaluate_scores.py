@@ -3,6 +3,8 @@ import sys
 import numpy as np
 import pandas as pd
 
+# usage: python evaluate_scores.py ${path_to_scores_file_with_experiment_results}
+
 scores = pd.read_csv(sys.argv[1], sep='\t')
 
 nr_of_nets = []

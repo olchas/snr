@@ -4,6 +4,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
+# usage: python plot.py ${path_to_scores_file_with_experiment_results}
+
 
 def plot_dataset(dataset, key,  names):
     for data, name in zip(dataset, names):
